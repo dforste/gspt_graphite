@@ -78,7 +78,8 @@ class gspt_graphite {
 #        'index'     => 'grafana-dash',
 #        'grafanaDB' => 'true',
 #      },
-  graphite_host      => "${::fqdn}:8080",
+  graphite_host      => $::fqdn,
+  graphite_port      => 8080,
   elasticsearch_host => $::fqdn,
   elasticsearch_port => 9200,
   }
