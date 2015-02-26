@@ -45,7 +45,7 @@ class gspt_graphite {
     ]
   }
   class { 'graphite':
-    gr_web_server     => 'none'
+    gr_web_server     => 'none',
     secret_key        => '2WCT7as73gyP',
   }
   
