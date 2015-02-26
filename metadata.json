@@ -1,0 +1,19 @@
+{
+  "author": "",
+  "dependencies": [
+  	{"name":"puppetlabs/apache","version_requirement":">= 1.1.1"},
+  	{"name":"puppetlabs/java"},
+  	{"name":"elasticsearch/elasticsearch"},
+  	{"name":"dwerder/grafana"},
+  	{"name":"dwerder/graphite"}
+  ],
+  "license": "",
+  "name": "dforster-gspt_graphite",
+  "operatingsystem_support": [],
+  "project_page": "",
+  "requirements": [],
+  "source": "",
+  "summary": "",
+  "tags": [],
+  "version": "0.1.0"
+}
