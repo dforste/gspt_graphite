@@ -43,7 +43,7 @@ class gspt_graphite {
       order => 'deny,allow',
       allow => 'from all'}
     ]
-  }<-
+  }
   class { 'graphite':
     gr_web_server => 'none'
   }
