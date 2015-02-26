@@ -14,7 +14,7 @@ class gspt_graphite {
   include '::apache'
 
   apache::vhost { "graphite-web${::fqdn}":
-    port    => '80',
+    port    => '8080',
     docroot => '/opt/graphite/webapp',
     wsgi_application_group      => '%{GLOBAL}',
     wsgi_daemon_process         => 'graphite',
@@ -77,7 +77,7 @@ class gspt_graphite {
 #        'index'     => 'grafana-dash',
 #        'grafanaDB' => 'true',
 #      },
-  graphite_host      => $::fqdn,
+  graphite_host      => "${::fqdn}:8080",
   elasticsearch_host => $::fqdn,
   elasticsearch_port => 9200,
   }
