@@ -96,4 +96,5 @@ class gspt_graphite {
       # http.cors.allow-origin => /http?:\/\/localhost(:[0-9]+)?/
     }
   }
+  elasticsearch::instance { 'es-01': }
 }
