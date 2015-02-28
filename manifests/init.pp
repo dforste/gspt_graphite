@@ -47,6 +47,46 @@ class gspt_graphite {
   class { 'graphite':
     gr_web_server     => 'none',
     secret_key        => '2WCT7as73gyP',
+    gr_enable_carbon_relay => true,
+    gr_relay_rules => {
+      all       => { 
+        pattern      => '.*',
+        destinations => [ '127.0.0.1:2004' ] 
+      },
+      'default' => { 
+        'default'    => true,
+        destinations => [ '127.0.0.1:2004:a' ] 
+      },
+    },
+    
+    gr_enable_carbon_aggregator => true
+    gr_aggregator_line_port => 
+    gr_aggregator_destinations => []
+    gr_aggregator_enable_udp_listener => true,
+    
+    aggregator_rules => {
+      '00_min'         => { pattern => '\.min$',   factor => '0.1', method => 'min' },
+      '01_max'         => { pattern => '\.max$',   factor => '0.1', method => 'max' },
+      '02_sum'         => { pattern => '\.count$', factor => '0.1', method => 'sum' },
+      '99_default_avg' => { pattern => '.*',       factor => '0.5', method => 'average'}
+    },
+    
+    
+    gr_line_receiver_port => 2103,
+    gr_pickle_receiver_port => 2104, 
+    gr_cache_query_port => 7102,
+    gr_cache_instances => {
+      'cache:b' => {
+        'LINE_RECEIVER_PORT' => 2203,
+        'PICKLE_RECEIVER_PORT' => 2204,
+        'CACHE_QUERY_PORT' => 7202,
+      },
+      'cache:c' => {
+        'LINE_RECEIVER_PORT' => 2303,
+        'PICKLE_RECEIVER_PORT' => 2304,
+        'CACHE_QUERY_PORT' => 7302,
+      }
+    }
   }
   
   apache::vhost { "grafana.${::fqdn}":
@@ -66,22 +106,10 @@ class gspt_graphite {
     ]
   }->
   class {'grafana':
-#    datasources  => {
-#      'graphite' => {
-#        'type'    => 'graphite',
-#        'url'     => $::fqdn, 
-#        'default' => 'true'
-#      },
-#      'elasticsearch' => {
-#        'type'      => 'elasticsearch',
-#        'url'       => $::fqdn
-#        'index'     => 'grafana-dash',
-#        'grafanaDB' => 'true',
-#      },
-  graphite_host      => $::fqdn,
-  graphite_port      => 8080,
-  elasticsearch_host => $::fqdn,
-  elasticsearch_port => 9200,
+    graphite_host      => $::fqdn,
+    graphite_port      => 8080,
+    elasticsearch_host => $::fqdn,
+    elasticsearch_port => 9200,
   }
   
   include java
