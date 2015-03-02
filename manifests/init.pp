@@ -112,8 +112,14 @@ class gspt_graphite {
     elasticsearch_port => 9200,
   }
   
-  include java
-  
+  class { 'java: 
+    version_hash => { 
+      'jdk1.8.0_31' => {
+        install_jce => false, 
+      }
+    }
+  }
+
   class { 'elasticsearch':
     manage_repo  => true,
     repo_version => '1.4',
