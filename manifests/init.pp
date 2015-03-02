@@ -117,6 +117,7 @@ class gspt_graphite {
   class { 'elasticsearch':
     manage_repo  => true,
     repo_version => '1.4',
+    init_defaults => { 'JAVA_HOME' => '/opt/java/' }
     config       => {
       # Allow cross-origin resource sharing, i.e. whether a browser on another origin can do requests to Elasticsearch.
       # Remove if we end up doing proxy requests I think. . .
